@@ -3,14 +3,14 @@ applyTo: "**"
 ---
 
 <!-- GENERATED FILE — DO NOT EDIT.
-     Synced from RichardW-LXD/microlearning-standards@v1.1.0 by .github/scripts/build-instructions.sh.
+     Synced from RichardW-LXD/microlearning-standards@v1.2.0 by .github/scripts/build-instructions.sh.
      Change the source in that repo and cut a new release; do not edit here. -->
 
 # Micro-Learning Standard — Design & Browser Build
 
 **Status: ENFORCEABLE STANDARD.** This is not advisory guidance. An AI assistant reading this file MUST treat its rules as constraints on any work it generates, reviews, or refactors in this domain.
 
-**Version: 1.1** — adds a machine-readable module metadata block (§1.0), an interaction & engagement section grounded in ICAP (§1.8), and concrete standalone-hosting and client-side persistence rules (§2.3, §2.8).
+**Version: 1.2** — confirms the house-style values (module length, text density, retrieval count, reading level, line length, load budget) and replaces the comfortable-tap-target house rule with the WCAG minimum (B-8). (1.1 added the machine-readable metadata block in §1.0, the ICAP-based interaction section in §1.8, and the standalone-hosting and client-side persistence rules in §2.3 and §2.8.)
 
 **Scope.** Self-contained micro-learning modules — short, single-objective learning units — that are **designed** to teach effectively *and* **built** as standalone web pages (HTML/CSS/JS) hosted at a stable URL and linked from the author's website, responsive across viewports, delivered online. Part 1 governs the learning design and content. Part 2 governs the browser implementation. Part 3 verifies both. These modules also serve as **client-facing demonstrations**, so production quality is part of the spec (§1.8).
 
@@ -26,10 +26,10 @@ applyTo: "**"
    - **SHOULD / SHOULD NOT** — strong default. Deviating is allowed only with a stated, specific justification recorded in the work.
 3. **When generating:** emit the §1.0 metadata block first, then satisfy Part 1 and Part 2, then self-run Part 3 before declaring the work done.
 4. **When reviewing or refactoring:** parse the §1.0 metadata block and confirm it matches the module (M-2); then cite the specific rule ID (e.g., `D-3`, `B-12`, `M-2`) for every issue you raise, and report against the Part 3 checklist so "done" is verifiable, not subjective.
-5. **House-style items** are marked `🏠 HOUSE-STYLE — confirm`. These are choices, not findings. Do not present them to the end user as research-derived, and flag any that have not been confirmed.
+5. **House-style items** are marked `🏠 House-style` — settled local conventions, not research findings. Do not present them to the end user as research-derived. (Anything still awaiting a decision would read `🏠 HOUSE-STYLE — confirm`; there are none at present.)
 6. **Traceability.** Each design section lists its grounding frameworks; each accessibility rule cites its WCAG success criterion. Full references are at the end. Do not invent citations, effect sizes, or page numbers beyond what is stated here.
 
-**Legend.** `M-#` = machine-readable metadata rule. `D-#` = design/content rule. `B-#` = build/implementation rule. `[WCAG x.x.x]` = a specific Web Content Accessibility Guidelines 2.2 success criterion. `🏠` = house-style choice requiring confirmation. Framework names in *Grounding* lines map to the References section.
+**Legend.** `M-#` = machine-readable metadata rule. `D-#` = design/content rule. `B-#` = build/implementation rule. `[WCAG x.x.x]` = a specific Web Content Accessibility Guidelines 2.2 success criterion. `🏠` = settled house-style choice (not research-derived). Framework names in *Grounding* lines map to the References section.
 
 ---
 
@@ -49,7 +49,7 @@ These rules govern the learning design regardless of how the module is built. Th
 
 | Field | Type | Notes |
 |---|---|---|
-| `standard` | string | Version of this standard the module targets, e.g. `microlearning-standard@1.1` |
+| `standard` | string | Version of this standard the module targets, e.g. `microlearning-standard@1.2` |
 | `id` | string | Stable, kebab-case identifier |
 | `title` | string | Human-readable module title |
 | `objective` | string | The single measurable objective (D-1, D-2, D-3) |
@@ -66,7 +66,7 @@ These rules govern the learning design regardless of how the module is built. Th
 
 ```json
 {
-  "standard": "microlearning-standard@1.1",
+  "standard": "microlearning-standard@1.2",
   "id": "network-tokenization-card-on-file-01",
   "title": "How Network Tokenization Protects a Card-on-File Payment",
   "objective": "Given a card-on-file checkout scenario, decide which token protects the transaction and justify the choice, with all decisions correct.",
@@ -115,7 +115,7 @@ These rules govern the learning design regardless of how the module is built. Th
 - **D-3 (SHOULD):** The objective SHOULD specify the conditions of performance and the criterion for success (the performance/condition/criterion structure), so it is checkable rather than aspirational.
 - **D-4 (MUST):** The objective MUST be stated to the learner near the start of the module (see D-18).
 - **D-5 (MUST NOT):** A module MUST NOT introduce content that does not serve its single objective. Surplus content is moved to another module or cut.
-- **D-6 (🏠 HOUSE-STYLE — confirm):** Target completion time is **3–7 minutes**. *This is a house choice, not a research-derived threshold; confirm or replace.*
+- **D-6 (🏠 House-style):** Target completion time is **3–7 minutes**. *Confirmed house choice, not a research-derived threshold.*
 
 ## §1.2 Cognitive load management
 
@@ -127,7 +127,7 @@ These rules govern the learning design regardless of how the module is built. Th
 - **D-10 (MUST):** Essential structure MUST be cued (signaling) — headings, emphasis, and ordering that make the organization visible. Signaling MUST NOT be achieved by visual noise (e.g., highlighting everything).
 - **D-11 (SHOULD):** Key terms, names, and prerequisite concepts SHOULD be introduced before the segment that depends on them (pre-training principle), especially for novice audiences.
 - **D-12 (SHOULD):** Intrinsic load SHOULD be managed for the intended prior-knowledge level — sequence simpler-to-complex and do not assume expertise the audience lacks.
-- **D-13 (🏠 HOUSE-STYLE — confirm):** Cap substantive on-screen text at roughly **one short paragraph (~50 words) per step**. *House choice; confirm or replace.*
+- **D-13 (🏠 House-style):** Cap substantive on-screen text at roughly **one short paragraph (~50 words) per step**. *Confirmed house choice, not research-derived.*
 
 ## §1.3 Multimedia & media pairing
 
@@ -155,7 +155,7 @@ These rules govern the learning design regardless of how the module is built. Th
 - **D-23 (MUST):** Every practice attempt MUST receive feedback. Feedback MUST explain *why* an answer is correct or incorrect, not only mark right/wrong.
 - **D-24 (SHOULD):** Practice difficulty SHOULD be calibrated as a *desirable* difficulty — effortful but achievable for the intended learner — rather than trivially easy or unfairly hard.
 - **D-25 (SHOULD):** If the module is one of a related series, it SHOULD support spaced revisiting (e.g., a brief retrieval check that recalls prior modules, or a design hook that allows scheduled review). Spacing schedule itself is out of scope here.
-- **D-26 (🏠 HOUSE-STYLE — confirm):** Include **2–4 practice items** per module. *House choice; confirm or replace.*
+- **D-26 (🏠 House-style):** Provide **2–4 retrieval moments** per module. A single rich interactive task — for example, a branching scenario with several decision points — may satisfy this when its decision points add up to that range. *Confirmed house choice, not research-derived; the active-retrieval floor itself is the MUST in D-21.*
 
 ## §1.6 Language & writing
 
@@ -165,7 +165,7 @@ These rules govern the learning design regardless of how the module is built. Th
 - **D-28 (SHOULD):** Instructional copy SHOULD address the learner directly in a conversational register (personalization principle) rather than impersonal third person.
 - **D-29 (MUST):** Terminology, labels, and capitalization MUST be consistent throughout a module (e.g., one canonical name per concept).
 - **D-30 (MUST):** Headings and step titles MUST be meaningful and descriptive of their content (this also supports B-2/B-6).
-- **D-31 (🏠 HOUSE-STYLE — confirm):** Target reading level is **plain-language / approximately grade 8**. *House choice; confirm or replace, especially for a multilingual or specialist audience.*
+- **D-31 (🏠 House-style):** Target reading level is **plain-language / approximately grade 8** for the instructional prose; necessary domain terms are pre-trained per D-11, not simplified away. *Confirmed house choice, not research-derived; lower to ~grade 6–7 if the audience reads English as a second language.*
 
 ## §1.7 Assessment alignment
 
@@ -222,7 +222,7 @@ The module MUST conform to **WCAG 2.2 Level AA** (W3C Recommendation, October 20
 - **B-15 (MUST):** The module MUST be fully usable in both portrait and landscape; orientation MUST NOT be locked unless essential [WCAG 1.3.4].
 - **B-16 (MUST):** Layout MUST adapt fluidly across the supported viewport range — phone browser through desktop browser — with legible type and no clipped or overlapping interactive elements at any supported width.
 - **B-17 (SHOULD):** Use relative/fluid units and flexible layout primitives; SHOULD NOT pin critical dimensions in absolute pixels where a relative unit would adapt.
-- **B-18 (🏠 HOUSE-STYLE — confirm):** Comfortable touch target ≥ **44 × 44 CSS px** (stronger than the WCAG 2.5.8 floor of 24 px), and a maximum readable text-column measure of ~**70 characters**. *These are house choices above the standard's minimum; confirm or replace.*
+- **B-18 (🏠 House-style):** Limit the readable text-column measure to ~**66 characters**. Touch-target size is governed solely by the WCAG minimum in B-8 (24 × 24 CSS px); there is no stricter house rule. *Confirmed house choice, not research-derived.*
 
 ## §2.3 State & progress persistence
 
@@ -246,7 +246,7 @@ The module MUST conform to **WCAG 2.2 Level AA** (W3C Recommendation, October 20
 - **B-28 (MUST):** The module MUST remain usable on a constrained connection — core content and the first interaction MUST be reachable without waiting on large media.
 - **B-29 (SHOULD):** Heavy media (images, audio, video) SHOULD be optimized and compressed for web delivery, and non-critical/below-the-fold media SHOULD be loaded lazily.
 - **B-30 (MUST):** Media MUST declare intrinsic dimensions or reserved space to avoid layout shift while loading.
-- **B-31 (🏠 HOUSE-STYLE — confirm):** Initial load budget ≈ **1.5 MB** transferred before first interaction; total module weight ≈ **5 MB**. *House choices; confirm or replace against the audience's real bandwidth.*
+- **B-31 (🏠 House-style):** Initial load budget ≈ **2 MB** transferred before first interaction; total module weight ≈ **8 MB**. *Confirmed house choices, not research-derived; the initial budget matters most, since heavy media is lazy-loaded per B-29.*
 
 ## §2.6 Robustness & graceful degradation
 
@@ -290,7 +290,7 @@ Each item is a binary check. A module is **conforming** only when every MUST-der
 - [ ] Content segmented into learner-paced chunks; no forced timed advance (D-8)
 - [ ] Essential structure is signaled without visual noise (D-10)
 - [ ] Prerequisite terms pre-trained where needed (D-11)
-- [ ] 🏠 Completion time within confirmed target (D-6) · 🏠 per-step text within confirmed cap (D-13)
+- [ ] 🏠 Completion time 3–7 min (D-6) · 🏠 per-step text ≤ ~50 words (D-13)
 
 ### Design — media
 - [ ] Visuals are instructionally relevant, not decorative (D-14)
@@ -303,7 +303,7 @@ Each item is a binary check. A module is **conforming** only when every MUST-der
 - [ ] Practice matches the objective's cognitive level (D-22)
 - [ ] Every attempt gets explanatory feedback (D-23)
 - [ ] Plain language, active voice, consistent terminology, meaningful headings (D-27, D-29, D-30)
-- [ ] 🏠 Practice item count within confirmed range (D-26) · 🏠 reading level within confirmed target (D-31)
+- [ ] 🏠 2–4 retrieval moments, or one rich task whose decisions add up (D-26) · 🏠 reading level ~grade 8 (D-31)
 
 ### Design — alignment
 - [ ] Objective, content, practice, and assessment all target the same performance (D-32)
@@ -337,7 +337,7 @@ Each item is a binary check. A module is **conforming** only when every MUST-der
 - [ ] Reflows at 320px width with no horizontal scroll (B-14)
 - [ ] Works in portrait and landscape; orientation not locked (B-15)
 - [ ] Fluid across phone→desktop widths; nothing clipped/overlapping (B-16)
-- [ ] 🏠 Comfortable target size / column measure within confirmed values (B-18)
+- [ ] 🏠 Line length ≤ ~66 characters (B-18; tap-target size per B-8 / WCAG)
 
 ### Build — state, reuse, performance, robustness, privacy
 - [ ] Resume works where applicable via client-side storage (B-19)
@@ -346,7 +346,7 @@ Each item is a binary check. A module is **conforming** only when every MUST-der
 - [ ] Content separated from logic as structured data (B-23)
 - [ ] Reusable/parameterized template; consistent naming; documented config (B-24, B-25, B-26)
 - [ ] Core content reachable on a constrained connection (B-28); media optimized + lazy where non-critical (B-29); no layout shift on load (B-30)
-- [ ] 🏠 Load/total weight within confirmed budget (B-31)
+- [ ] 🏠 Initial load ≤ ~2 MB, total ≤ ~8 MB (B-31)
 - [ ] Core content readable if enhancement scripts fail (B-32); interactive failures handled accessibly (B-33); no console errors in target browsers (B-34); any AI/adaptive layer is enhancement-only (B-35)
 - [ ] No third-party trackers; learner data only to a sanctioned endpoint over HTTPS, never in URLs (B-36, B-37, B-38)
 
