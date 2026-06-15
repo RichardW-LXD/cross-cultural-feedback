@@ -1,0 +1,49 @@
+name: Sync standard
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"   # Mondays 09:00 UTC
+  workflow_dispatch:        # also runnable on demand from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Resolve latest release of the standard
+        id: rel
+        env:
+          # Public canonical repo: the repo-scoped token can read public releases.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Private canonical repo: use a PAT with read access ->
+          #   GH_TOKEN: ${{ secrets.STANDARDS_TOKEN }}
+        run: |
+          set -euo pipefail
+          # shellcheck disable=SC1091
+          source .github/standards.env
+          TAG="$(gh release view --repo "${OWNER}/${REPO}" --json tagName -q .tagName)"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Pin to that release and rebuild the instructions file
+        run: |
+          set -euo pipefail
+          echo "${{ steps.rel.outputs.tag }}" > .github/standards.ref
+          bash .github/scripts/build-instructions.sh "${{ steps.rel.outputs.tag }}"
+
+      - name: Open a PR if anything changed
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: chore/sync-standard
+          title: "chore: sync micro-learning standard to ${{ steps.rel.outputs.tag }}"
+          commit-message: "chore: sync micro-learning standard to ${{ steps.rel.outputs.tag }}"
+          body: |
+            Automated sync of the micro-learning standard to **${{ steps.rel.outputs.tag }}**.
+
+            - Regenerated `.github/instructions/microlearning.instructions.md`
+            - Updated `.github/standards.ref`
+          labels: standards

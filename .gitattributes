@@ -1,0 +1,5 @@
+# Keep shell scripts and config that bash reads as LF, even on Windows
+*.sh  text eol=lf
+*.env text eol=lf
+*.ref text eol=lf
+*.yml text eol=lf

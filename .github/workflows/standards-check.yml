@@ -1,0 +1,45 @@
+name: Standards check
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Verify embedded standard matches the pinned version
+        run: |
+          set -euo pipefail
+          # shellcheck disable=SC1091
+          source .github/standards.env
+          REF="$(cat .github/standards.ref)"
+          RAW="https://raw.githubusercontent.com/${OWNER}/${REPO}/${REF}/${SRC}"
+
+          # Fetch the canonical standard at the pinned ref.
+          # Public canonical repo: no auth. Private: swap for
+          #   gh api "repos/${OWNER}/${REPO}/contents/${SRC}?ref=${REF}" -H "Accept: application/vnd.github.raw" > /tmp/canonical.md
+          # and set GH_TOKEN from the STANDARDS_TOKEN secret on this step.
+          curl -fsSL "$RAW" -o /tmp/canonical.md
+
+          FILE=".github/instructions/microlearning.instructions.md"
+          if [ ! -f "$FILE" ]; then
+            echo "::error::$FILE is missing. Run .github/scripts/build-instructions.sh and commit the result."
+            exit 1
+          fi
+
+          # Slice out the embedded standard: everything from its first heading onward.
+          awk 'f || /^# Micro-Learning Standard/ { f=1; print }' "$FILE" > /tmp/embedded.md
+
+          if ! diff -u /tmp/canonical.md /tmp/embedded.md; then
+            echo "::error::Embedded standard is out of sync with ${OWNER}/${REPO}@${REF}. Regenerate with .github/scripts/build-instructions.sh (or merge the sync PR). Do not hand-edit the instructions file."
+            exit 1
+          fi
+
+          echo "OK: instructions file matches ${OWNER}/${REPO}@${REF}"
