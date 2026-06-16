@@ -14,4 +14,4 @@ These are design-assured (rem units, fluid layout, no fixed heights, automated D
 One recorded SHOULD deviation
 D-35 Interactive tier (adaptive dialogue) is not implemented — justified: the spec (§7) explicitly scopes AI-adaptive dialogue to v2. The build meets the required Constructive floor (self-explanation) and uses responsive in-thread branching. Everything else in Part 3 that applies is ✅; B-7/B-9 are N/A (no audio-video, no drag).
 
-Nothing is committed — the files are in the working tree only. Want me to open it in a browser to do the zoom/reflow/iframe confirmations, or commit on a branch?
+Build status — the module is committed to the `build-module` branch and verified: all §9 checks above pass.
