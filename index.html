@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Reading Feedback Across Styles on a Global Team — Micro-learning</title>
+  <meta name="description"
+    content="A 5-minute interactive scenario: tell apart a direct/indirect feedback style from intent, and respond so the work improves without escalating." />
+
+  <!-- Link-preview metadata so a shared link previews professionally (B-43). Relative path (B-42). -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Reading Feedback Across Styles on a Global Team" />
+  <meta property="og:description"
+    content="A 5-minute interactive scenario on reading direct vs. indirect feedback on a global team — and responding to the substance, not the style." />
+  <meta property="og:image" content="assets/og.svg" />
+  <meta property="og:image:type" content="image/svg+xml" />
+  <meta property="og:image:alt"
+    content="Two chat messages — one blunt, one warm — both flagging the same screen, at opposite ends of a directness scale." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Reading Feedback Across Styles on a Global Team" />
+  <meta name="twitter:description"
+    content="A 5-minute interactive scenario on reading direct vs. indirect feedback — and responding to the substance, not the style." />
+  <meta name="twitter:image" content="assets/og.svg" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <!--
+    M-1: machine-readable module metadata, the first child of <body>.
+    M-2: values match the built module; M-3: validates against the §1.0 schema.
+  -->
+  <script type="application/json" id="module-metadata">
+  {
+    "standard": "microlearning-standard@1.2",
+    "id": "cross-cultural-feedback",
+    "title": "Reading Feedback Across Styles on a Global Team",
+    "objective": "Given a global-team exchange where blunt or vague feedback causes friction, determine whether the cause is a direct/indirect communication-style difference rather than intent, and choose a response that addresses the work issue without escalating.",
+    "bloomLevel": "apply",
+    "estimatedMinutes": 5,
+    "interactionTypes": ["branching-scenario", "self-explanation"],
+    "practiceItemCount": 3,
+    "passCriterion": "Aligned response selected on all 3 decisions (corrective feedback and retry on misses).",
+    "prerequisites": [],
+    "lang": "en",
+    "version": "1.0.0"
+  }
+  </script>
+
+  <!-- Visually-hidden polite live region: succinct status announcements for screen readers (B-1). -->
+  <div id="sr-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <a class="skip-link" href="#main">Skip to the module</a>
+
+  <header class="site-header">
+    <p class="brand"><span class="brand__mark" aria-hidden="true">◈</span> Lumen&nbsp;Pay</p>
+    <p class="brand__sub">Micro-learning</p>
+  </header>
+
+  <main id="main" class="module" tabindex="-1">
+
+    <!--
+      EXPOSITORY MATERIAL (single source, readable with no JavaScript — B-32).
+      The interactive practice in app.js enhances this DOM; it does not duplicate it (B-25).
+    -->
+
+    <section id="intro" class="card" aria-labelledby="intro-title">
+      <p class="kicker">Working across styles · ~5 min</p>
+      <h1 id="intro-title">Reading Feedback Across Styles on a Global Team</h1>
+
+      <p class="objective" id="objective">
+        <strong>What you'll be able to do:</strong> when blunt or vague feedback causes friction, tell apart a
+        direct/indirect <em>communication-style</em> difference from a difference in <em>intent</em>, and choose a
+        reply that fixes the work without escalating.
+      </p>
+
+      <h2 class="h-sub">The setup</h2>
+      <p>
+        You're a product writer at <strong>Lumen&nbsp;Pay</strong>. Tomorrow you present the new in-app
+        <strong>transaction-dispute flow</strong> — the screens that walk a customer through reporting a charge they
+        don't recognise. Last night you shared a first draft in the team channel. This morning, two replies are
+        waiting: one from <strong>Sam</strong> and one from <strong>Alex</strong>.
+      </p>
+      <p class="task">
+        Two replies, two very different tones. Your job: work out what each teammate is <em>really</em> telling you,
+        and respond so the work gets better <em>and</em> the relationship stays intact.
+      </p>
+
+      <noscript>
+        <p class="notice">
+          This module's interactive practice needs JavaScript. You can still read the scenario, both messages, and
+          the takeaways below — just enable JavaScript to make the decisions.
+        </p>
+      </noscript>
+
+      <!-- The "Start" control is injected by app.js so it never appears as a dead button without JS. -->
+      <div id="intro-actions" class="step-actions"></div>
+    </section>
+
+    <!-- The team channel. Sam's and Alex's original messages are the material; the engine appends replies here. -->
+    <section id="channel" class="card" aria-labelledby="channel-title">
+      <h2 id="channel-title" class="channel__title">
+        <span class="channel__hash" aria-hidden="true">#</span>dispute-flow
+        <span class="channel__meta">· first-draft review</span>
+      </h2>
+
+      <ol class="thread" id="thread">
+        <li class="msg msg--them" data-from="Sam">
+          <span class="avatar avatar--sam" aria-hidden="true">S</span>
+          <div class="bubble">
+            <p class="msg__name">Sam</p>
+            <p class="msg__text">The dispute flow doesn't work yet. Screen&nbsp;3 is confusing — customers won't know
+              whether to tap “Report” or “Cancel,” and the wording is far too vague about the timeline. This needs a
+              rework before tomorrow.</p>
+          </div>
+        </li>
+        <li class="msg msg--them" data-from="Alex">
+          <span class="avatar avatar--alex" aria-hidden="true">A</span>
+          <div class="bubble">
+            <p class="msg__name">Alex</p>
+            <p class="msg__text">This is looking great — really nice work! I think it's almost there. Maybe screen&nbsp;3
+              could be a tiny bit clearer? Just a small thought, totally up to you. Excited to see it tomorrow!</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Practice steps (decisions) are injected here by app.js. Empty without JS. -->
+    <section id="practice" class="card" aria-labelledby="practice-title" hidden>
+      <h2 id="practice-title" class="sr-only">Your decisions</h2>
+    </section>
+
+    <!-- Debrief: takeaways are expository material (readable without JS); the personalised recap is injected by JS. -->
+    <section id="debrief" class="card" aria-labelledby="debrief-title">
+      <p class="kicker">Debrief</p>
+      <h2 id="debrief-title">Same issue, opposite wrapping</h2>
+      <p>
+        Two teammates, the same real issue — <strong>screen&nbsp;3</strong> — at opposite ends of the directness
+        scale. The skill wasn't guessing where anyone was from; it was reading <em>how</em> each delivers feedback and
+        responding to the substance:
+      </p>
+      <ul class="takeaways">
+        <li><strong>Blunt isn't rude</strong> — separate the <em>what</em> from the <em>how</em>.</li>
+        <li><strong>Soft isn't “no problem”</strong> — a specific question surfaces the real ask.</li>
+        <li><strong>When a style differs from yours, flex toward it</strong> — confirm the work, rather than matching
+          tone or taking it personally.</li>
+      </ul>
+      <p class="debrief__close">
+        You never needed anyone's nationality — only their behaviour. Next time feedback lands wrong, ask:
+        <em>is this style, or substance?</em> Usually it's both.
+      </p>
+
+      <!-- "How you read the room" recap (from session memory) is injected here by app.js. -->
+      <div id="recap"></div>
+      <div id="debrief-actions" class="step-actions"></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>A micro-learning demonstration · built to the team micro-learning standard (v1.2).</p>
+  </footer>
+
+  <!-- Progressive enhancement: scripts enhance the readable DOM above. Relative paths (B-42); no fetch, no CDN.
+       `defer` preserves order (content → storage → app) and runs after parsing. -->
+  <script src="js/content.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
