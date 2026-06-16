@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img"
+  aria-label="Reading Feedback Across Styles on a Global Team — two chat messages, one blunt and one warm, both flagging the same screen.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4338ca"/>
+      <stop offset="1" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- brand -->
+  <text x="80" y="108" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="700"
+    fill="#c7d2fe">◈ LUMEN PAY · MICRO-LEARNING</text>
+
+  <!-- title -->
+  <text x="80" y="190" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="62" font-weight="800" fill="#ffffff">Reading Feedback</text>
+  <text x="80" y="262" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="62" font-weight="800" fill="#ffffff">Across Styles</text>
+
+  <text x="80" y="322" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" font-weight="400" fill="#e0e7ff">Same issue, opposite wrapping — read the style, not the passport.</text>
+
+  <!-- direct message card -->
+  <g transform="translate(80,372)">
+    <rect width="480" height="178" rx="18" fill="#ffffff"/>
+    <circle cx="42" cy="46" r="22" fill="#0f766e"/>
+    <text x="42" y="54" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">S</text>
+    <text x="80" y="42" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1b1f2a">Sam · direct</text>
+    <text x="80" y="80" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#4a5160">“Screen 3 is confusing —</text>
+    <text x="80" y="110" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#4a5160">this needs a rework before</text>
+    <text x="80" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#4a5160">tomorrow.”</text>
+  </g>
+
+  <!-- indirect message card -->
+  <g transform="translate(620,372)">
+    <rect width="480" height="178" rx="18" fill="#ffffff"/>
+    <circle cx="42" cy="46" r="22" fill="#7c3aed"/>
+    <text x="42" y="54" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">A</text>
+    <text x="80" y="42" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1b1f2a">Alex · indirect</text>
+    <text x="80" y="80" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#4a5160">“Looking great! Maybe</text>
+    <text x="80" y="110" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#4a5160">screen 3 could be a tiny</text>
+    <text x="80" y="140" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#4a5160">bit clearer? Up to you.”</text>
+  </g>
+</svg>
