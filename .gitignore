@@ -1,0 +1,11 @@
+# Secrets — never commit the API key (B-38). Use .env.example as the template.
+.env
+.env.local
+.env.*.local
+
+# Dependencies (installed for the optional api/feedback.js backend)
+node_modules/
+
+# Platform build/deploy output
+.vercel/
+.netlify/

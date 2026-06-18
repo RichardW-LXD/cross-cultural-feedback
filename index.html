@@ -6,13 +6,13 @@
 
   <title>Reading Feedback Across Styles on a Global Team — Micro-learning</title>
   <meta name="description"
-    content="A 5-minute interactive scenario: tell apart a direct/indirect feedback style from intent, and respond so the work improves without escalating." />
+    content="A short interactive scenario: read whether a teammate's feedback is direct or indirect from the cues in their words, and respond to the substance without escalating." />
 
   <!-- Link-preview metadata so a shared link previews professionally (B-43). Relative path (B-42). -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Reading Feedback Across Styles on a Global Team" />
   <meta property="og:description"
-    content="A 5-minute interactive scenario on reading direct vs. indirect feedback on a global team — and responding to the substance, not the style." />
+    content="Read direct vs. indirect feedback from the cues in a teammate's words, and respond to the substance, not the style." />
   <meta property="og:image" content="assets/og.svg" />
   <meta property="og:image:type" content="image/svg+xml" />
   <meta property="og:image:alt"
@@ -20,10 +20,39 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Reading Feedback Across Styles on a Global Team" />
   <meta name="twitter:description"
-    content="A 5-minute interactive scenario on reading direct vs. indirect feedback — and responding to the substance, not the style." />
+    content="Read direct vs. indirect feedback from the cues in a teammate's words, and respond to the substance, not the style." />
   <meta name="twitter:image" content="assets/og.svg" />
 
   <link rel="stylesheet" href="css/styles.css" />
+
+  <!--
+    Set the theme before first paint (no flash of the wrong theme). Reads the saved preference
+    directly — the one storage read that must run before js/storage.js loads; all other
+    persistence goes through the storage interface (B-21). Key "ccf-theme" must match storage.js.
+  -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("ccf-theme");
+        if (t !== "light" && t !== "dark") {
+          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+
+  <!--
+    Module config (B-26): the AI coach endpoint. Relative path so it resolves on the host that
+    serves both the page and the function (B-42). If the endpoint is missing/offline/opened from
+    a file, the coach fails gracefully and the module uses the static cue feedback (B-35).
+    Set to "" to disable the AI layer entirely and always use static feedback.
+  -->
+  <script>
+    window.MODULE_CONFIG = { feedbackEndpoint: "/api/feedback" };
+  </script>
 </head>
 
 <body>
@@ -38,13 +67,13 @@
     "title": "Reading Feedback Across Styles on a Global Team",
     "objective": "Given a global-team exchange where blunt or vague feedback causes friction, determine whether the cause is a direct/indirect communication-style difference rather than intent, and choose a response that addresses the work issue without escalating.",
     "bloomLevel": "apply",
-    "estimatedMinutes": 5,
-    "interactionTypes": ["branching-scenario", "self-explanation"],
-    "practiceItemCount": 3,
-    "passCriterion": "Aligned response selected on all 3 decisions (corrective feedback and retry on misses).",
+    "estimatedMinutes": 6,
+    "interactionTypes": ["highlight-annotate", "ai-feedback", "branching-scenario"],
+    "practiceItemCount": 4,
+    "passCriterion": "Aligned reply selected on both teammates (corrective feedback and retry on misses); at least one cue annotated per message.",
     "prerequisites": [],
     "lang": "en",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
   </script>
 
@@ -56,6 +85,7 @@
   <header class="site-header">
     <p class="brand"><span class="brand__mark" aria-hidden="true">◈</span> Lumen&nbsp;Pay</p>
     <p class="brand__sub">Micro-learning</p>
+    <!-- The theme switch and "Start over" control are injected here by js/theme.js and js/restart.js. -->
   </header>
 
   <main id="main" class="module" tabindex="-1">
@@ -63,10 +93,11 @@
     <!--
       EXPOSITORY MATERIAL (single source, readable with no JavaScript — B-32).
       The interactive practice in app.js enhances this DOM; it does not duplicate it (B-25).
+      The <mark class="cue"> spans are the observable cues (KB §2); JS upgrades them into buttons.
     -->
 
     <section id="intro" class="card" aria-labelledby="intro-title">
-      <p class="kicker">Working across styles · ~5 min</p>
+      <p class="kicker">Working across styles · ~6 min</p>
       <h1 id="intro-title">Reading Feedback Across Styles on a Global Team</h1>
 
       <p class="objective" id="objective">
@@ -83,14 +114,15 @@
         waiting: one from <strong>Sam</strong> and one from <strong>Alex</strong>.
       </p>
       <p class="task">
-        Two replies, two very different tones. Your job: work out what each teammate is <em>really</em> telling you,
-        and respond so the work gets better <em>and</em> the relationship stays intact.
+        You'll take them <em>one at a time</em>. For each: highlight the phrases that show <em>how</em> the teammate is
+        giving feedback and say what they tell you — then reply so the work gets better <em>and</em> the relationship
+        stays intact.
       </p>
 
       <noscript>
         <p class="notice">
           This module's interactive practice needs JavaScript. You can still read the scenario, both messages, and
-          the takeaways below — just enable JavaScript to make the decisions.
+          the takeaways below — just enable JavaScript to highlight cues and reply.
         </p>
       </noscript>
 
@@ -98,38 +130,44 @@
       <div id="intro-actions" class="step-actions"></div>
     </section>
 
-    <!-- The team channel. Sam's and Alex's original messages are the material; the engine appends replies here. -->
-    <section id="channel" class="card" aria-labelledby="channel-title">
-      <h2 id="channel-title" class="channel__title">
-        <span class="channel__hash" aria-hidden="true">#</span>dispute-flow
-        <span class="channel__meta">· first-draft review</span>
-      </h2>
+    <!-- Per-exercise instructions (rendered by app.js), placed ABOVE the message so each exercise
+         opens with the task. Empty/hidden without JS — the readable material lives elsewhere (B-32). -->
+    <section id="phase-intro" class="card" aria-labelledby="step-heading" hidden></section>
 
+    <!-- The team channel. The two original messages are the material; the engine reveals one teammate at a
+         time, upgrades the cue marks into buttons, and appends replies here. -->
+    <section id="channel" class="card" aria-label="Team channel">
       <ol class="thread" id="thread">
-        <li class="msg msg--them" data-from="Sam">
+        <li class="msg msg--them" id="msg-sam" data-from="Sam">
           <span class="avatar avatar--sam" aria-hidden="true">S</span>
           <div class="bubble">
             <p class="msg__name">Sam</p>
-            <p class="msg__text">The dispute flow doesn't work yet. Screen&nbsp;3 is confusing — customers won't know
-              whether to tap “Report” or “Cancel,” and the wording is far too vague about the timeline. This needs a
-              rework before tomorrow.</p>
+            <p class="msg__text">The dispute flow <mark class="cue" data-cue="sam-1">doesn't work yet</mark>.
+              Screen&nbsp;3 is confusing — customers <mark class="cue" data-cue="sam-2">won't know whether to tap
+              “Report” or “Cancel”</mark>, and the wording is <mark class="cue" data-cue="sam-3">far too vague about the
+              timeline</mark>. <mark class="cue" data-cue="sam-4">This needs a rework before tomorrow.</mark></p>
           </div>
         </li>
-        <li class="msg msg--them" data-from="Alex">
+        <li class="msg msg--them" id="msg-alex" data-from="Alex">
           <span class="avatar avatar--alex" aria-hidden="true">A</span>
           <div class="bubble">
             <p class="msg__name">Alex</p>
-            <p class="msg__text">This is looking great — really nice work! I think it's almost there. Maybe screen&nbsp;3
-              could be a tiny bit clearer? Just a small thought, totally up to you. Excited to see it tomorrow!</p>
+            <p class="msg__text"><mark class="cue" data-cue="alex-1">This is looking great — really nice work!</mark>
+              I think it's almost there. Maybe <mark class="cue" data-cue="alex-4">screen&nbsp;3</mark> could be
+              <mark class="cue" data-cue="alex-2">a tiny bit clearer</mark>? <mark class="cue" data-cue="alex-3">Just a
+              small thought, totally up to you.</mark> Excited to see it tomorrow!</p>
           </div>
         </li>
       </ol>
     </section>
 
-    <!-- Practice steps (decisions) are injected here by app.js. Empty without JS. -->
+    <!-- Step 1 work (your notes on the cues) is injected here by app.js. Empty without JS. -->
     <section id="practice" class="card" aria-labelledby="practice-title" hidden>
-      <h2 id="practice-title" class="sr-only">Your decisions</h2>
+      <h2 id="practice-title" class="sr-only">Your notes</h2>
     </section>
+
+    <!-- Step 2 (your reply) renders in its own card by app.js, distinct from the step-1 work above. -->
+    <section id="reply-card" class="card" aria-label="Your reply" hidden></section>
 
     <!-- Debrief: takeaways are expository material (readable without JS); the personalised recap is injected by JS. -->
     <section id="debrief" class="card" aria-labelledby="debrief-title">
@@ -162,10 +200,13 @@
     <p>A micro-learning demonstration · built to the team micro-learning standard (v1.2).</p>
   </footer>
 
-  <!-- Progressive enhancement: scripts enhance the readable DOM above. Relative paths (B-42); no fetch, no CDN.
-       `defer` preserves order (content → storage → app) and runs after parsing. -->
+  <!-- Progressive enhancement: scripts enhance the readable DOM above. Relative paths (B-42); no CDN.
+       `defer` preserves order (content → storage → theme → restart → coach → app) and runs after parsing. -->
   <script src="js/content.js" defer></script>
   <script src="js/storage.js" defer></script>
+  <script src="js/theme.js" defer></script>
+  <script src="js/restart.js" defer></script>
+  <script src="js/coach.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
 </html>

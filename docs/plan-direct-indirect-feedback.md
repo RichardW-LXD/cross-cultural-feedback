@@ -1,5 +1,14 @@
 # Module Plan — Reading Feedback Across Styles on a Global Team
 
+> **v2 update (current build).** The interaction was reworked: the learner now takes the teammates
+> **one at a time** (Sam, then Alex); for each, they **highlight marked cue-phrases** in the message
+> and **write their reasoning**, an **AI coach** (Claude Sonnet 4.6, via a serverless proxy) gives
+> specific feedback on that reasoning — with **static cue feedback as a graceful fallback** — and the
+> **reply step is kept**. The scenario, the two messages, the reply choices/feedback, and the KB
+> grounding below are unchanged; the cue-phrases map to the observable cues in `docs/kb-…` §2. The
+> original v1 design (single thread, three quiz-style decisions, one self-explanation) is described
+> in the sections that follow for reference.
+
 **What this is.** The instructional-design spec for one micro-learning module — the *what* and the pedagogy. It is the design source for the build. Read it alongside the standard (in this repo at `.github/instructions/microlearning.instructions.md`) and the knowledge base (`docs/kb-direct-indirect-feedback.md`). Implementation choices — file structure, components, state, styling — are deliberately left to the build (plan mode); this doc does not prescribe them.
 
 **Status.** Draft v0.1 for review. Self-contained: a fresh build agent should be able to produce the module from this doc + the standard + the KB, without the conversation that produced it.
