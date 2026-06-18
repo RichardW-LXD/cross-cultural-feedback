@@ -97,6 +97,7 @@
 
     var inPhase = step === "sam" || step === "alex";
     show(dom.intro, step === "intro");
+    show(dom.exercise, inPhase);
     show(dom.phaseIntro, inPhase);
     show(dom.channel, inPhase);
     show(dom.debrief, step === "debrief");
@@ -492,7 +493,7 @@
    * Init — upgrade cue marks to buttons, set up the enhanced view
    * =======================================================================*/
   function revealAll() {
-    show(dom.intro, true); show(dom.channel, true); show(dom.debrief, true);
+    show(dom.intro, true); show(dom.exercise, true); show(dom.channel, true); show(dom.debrief, true);
     show(dom.msgSam, true); show(dom.msgAlex, true);
   }
 
@@ -513,6 +514,7 @@
     dom.srLive = document.getElementById("sr-live");
     dom.intro = document.getElementById("intro");
     dom.introActions = document.getElementById("intro-actions");
+    dom.exercise = document.getElementById("exercise");
     dom.phaseIntro = document.getElementById("phase-intro");
     dom.channel = document.getElementById("channel");
     dom.thread = document.getElementById("thread");
@@ -534,7 +536,8 @@
 
     upgradeCues();
 
-    // Enhanced view: hide channel/debrief until needed (without JS, all stayed visible — B-32).
+    // Enhanced view: hide the exercise + debrief until needed (without JS, all stayed visible — B-32).
+    show(dom.exercise, false);
     show(dom.channel, false);
     show(dom.debrief, false);
 

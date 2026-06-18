@@ -130,13 +130,17 @@
       <div id="intro-actions" class="step-actions"></div>
     </section>
 
-    <!-- Per-exercise instructions (rendered by app.js), placed ABOVE the message so each exercise
-         opens with the task. Empty/hidden without JS — the readable material lives elsewhere (B-32). -->
-    <section id="phase-intro" class="card" aria-labelledby="step-heading" hidden></section>
+    <!-- The exercise. Instructions span the top; on wide screens the message (left) and the work area
+         (right) sit side-by-side, collapsing to one column on narrow screens. No `hidden` here so the
+         message inside stays readable without JS (B-32); app.js hides this until a phase starts. -->
+    <div id="exercise" class="exercise">
 
-    <!-- The team channel. The two original messages are the material; the engine reveals one teammate at a
-         time, upgrades the cue marks into buttons, and appends replies here. -->
-    <section id="channel" class="card" aria-label="Team channel">
+      <!-- Per-exercise instructions (rendered by app.js), spanning the top of the exercise. -->
+      <section id="phase-intro" class="card exercise__top" aria-labelledby="step-heading" hidden></section>
+
+      <!-- Left column: the team channel. The two original messages are the material; the engine reveals one
+           teammate at a time, upgrades the cue marks into buttons, and appends replies here. -->
+      <section id="channel" class="card exercise__left" aria-label="Team channel">
       <ol class="thread" id="thread">
         <li class="msg msg--them" id="msg-sam" data-from="Sam">
           <span class="avatar avatar--sam" aria-hidden="true">S</span>
@@ -161,13 +165,18 @@
       </ol>
     </section>
 
-    <!-- Step 1 work (your notes on the cues) is injected here by app.js. Empty without JS. -->
-    <section id="practice" class="card" aria-labelledby="practice-title" hidden>
-      <h2 id="practice-title" class="sr-only">Your notes</h2>
-    </section>
+      <!-- Right column: your work — step-1 notes, then step-2 reply, stacked. -->
+      <div class="exercise__right">
+        <!-- Step 1 work (your notes on the cues) is injected here by app.js. Empty without JS. -->
+        <section id="practice" class="card" aria-labelledby="practice-title" hidden>
+          <h2 id="practice-title" class="sr-only">Your notes</h2>
+        </section>
 
-    <!-- Step 2 (your reply) renders in its own card by app.js, distinct from the step-1 work above. -->
-    <section id="reply-card" class="card" aria-label="Your reply" hidden></section>
+        <!-- Step 2 (your reply) renders in its own card by app.js, distinct from the step-1 work above. -->
+        <section id="reply-card" class="card" aria-label="Your reply" hidden></section>
+      </div>
+
+    </div><!-- /#exercise -->
 
     <!-- Debrief: takeaways are expository material (readable without JS); the personalised recap is injected by JS. -->
     <section id="debrief" class="card" aria-labelledby="debrief-title">

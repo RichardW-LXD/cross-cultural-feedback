@@ -67,7 +67,7 @@
   --radius: 16px;
   --radius-sm: 10px;
   --radius-lg: 20px;
-  --maxw: 44rem;
+  --maxw: 54rem;
   --measure: 66ch;
 
   /* ---- Elevation — soft, layered ---- */
@@ -187,6 +187,20 @@ h1, h2, h3 { letter-spacing: -0.018em; }
 
 /* ---- Layout ---- */
 .module { max-width: var(--maxw); margin: 0 auto; padding: .5rem 1.25rem 1rem; }
+
+/* ---- Two-column exercise: instructions span the top; message (left) + work (right).
+   Single column below 52rem — collapses to the stacked layout (B-14/B-16). ---- */
+@media (min-width: 52rem) {
+  .exercise {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+  .exercise__top { grid-column: 1 / -1; }
+  .exercise__left { grid-column: 1; }
+  .exercise__right { grid-column: 2; }
+}
 
 .card {
   background: var(--surface);
